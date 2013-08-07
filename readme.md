@@ -1,16 +1,17 @@
 # Adlayer Javascript Plugins
+> Plug and play powerful client-side integrations
 
-Adlayer Js plugins são componentes que extendem as funcionalidade dos [Adlayer Widgets](#).
+Adlayer Js plugins são componentes que extendem as funcionalidade da [Adlayer js API](http://github.com/adlayer/javascript-api) e consequentemente dos [Adlayer Widgets](http://github.com/adlayer/javascript-api).
 
-Os plugins pode ser utilizados para:
+Os plugins podem ser utilizados para:
 * Acrescentar um comportamento depois da execução de um widget
 * Adicionar opções de targeting customizadas
 
 ## Carregando plugins
 
-Os plugins são escritos em javascript e devem preferivelmente ser escritos em arquivos separados do html.
+Os plugins são escritos em javascript e devem preferivelmente estar em arquivos separados do html.
 
-Desta forma os Arquivos de plugins devem ser carregados ANTES de qualquer Adlayer widget.
+Desta forma os Arquivos de plugins devem ser carregados ANTES de qualquer **Adlayer Widget** ou do **Adlayer Javascript API**.
 
 ex: 
 ```html
@@ -28,17 +29,16 @@ Todo plugin deve seguir a seguinte estrutura:
 var adlayer = window.adlayer || {};
 adlayer.plugins = adlayer.plugins || {};
 
-adlayer.plugins.nomeDoPlugin = {
-	
-	onReady: function(){},
-	onLoad: function(){},
-	beforeStart: function(){}
-}
+adlayer.plugins.nomeDoPlugin = function(adlayer){
+	adlayer.on('load', function(){
+		
+	});
+};
 ```
 
 Todo Adlayer widget antes de iniciar seu autorun registra todos os plugins e respectivos eventos.
 
-A implementação deverá ser algo como:
+A implementação interna deverá ser algo como:
 
 ```javascript
 if (adlayer.plugins){
